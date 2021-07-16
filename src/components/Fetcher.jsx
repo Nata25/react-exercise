@@ -1,11 +1,23 @@
 import React from 'react'
+import Button from '@material-ui/core/Button'
 
-const Fetcher = ({ submitUrl }) => {
+const Fetcher = ({ dataAlias, submitUrl }) => {
+  const urls = ['users', 'posts', 'comments']
   return (
     <div>
-      <button onClick={() => submitUrl('users')}>users</button>
-      <button onClick={() => submitUrl('posts')}>posts</button>
-      <button onClick={() => submitUrl('comments')}>comments</button>
+      {urls.map(button => {
+        return (
+          <Button
+            key={button}
+            onClick={() => submitUrl(button)}
+            color={dataAlias === button ? 'primary' : 'default'}
+            variant="contained"
+          >
+            {button}
+          </Button>
+        )
+        })
+      }
     </div>
   )
 }

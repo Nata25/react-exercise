@@ -37,7 +37,7 @@ const DataDisplay = () => {
   return (
     <div>
       <h1>Fetch some data!</h1>
-      <Fetcher submitUrl={memoisedCallback}/>
+      <Fetcher dataAlias={activeUrl} submitUrl={memoisedCallback}/>
       <ul>
         {data.map(user => 
           <li key={user.id}>{JSON.stringify(user)}</li>
