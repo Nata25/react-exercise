@@ -17,6 +17,7 @@ const DataDisplay = () => {
           }
         )
         .then(data => {
+          console.log(data)
           setData(data)
         })
         .catch(e => {
@@ -24,23 +25,31 @@ const DataDisplay = () => {
         })
   }, [activeUrl])
 
+  // styling staff
   const useStyles = makeStyles({
     list: {
       listStyleType: 'none',
-      paddingLeft: 0
+      paddingLeft: 0,
+      textAlign: 'left'
     }
   })
   const styles = useStyles()
   
   return (
-    <Container fluid>
+    <Container fixed alignItems="start">
       <h1>Fetch some data!</h1>
       <Fetcher dataAlias={activeUrl} submitUrl={setUrl}/>
-      <ul className={styles.list}>
-        {data.map(user => 
-          <li key={user.id}>{JSON.stringify(user)}</li>
-        )}        
-      </ul>
+      <div>
+        <ul className={styles.list}>
+          {data.map(item =>
+            <li
+              key={item.id}
+            >
+              {JSON.stringify(item)}
+            </li>
+          )}
+        </ul>
+      </div>
     </Container>
   )
 }
