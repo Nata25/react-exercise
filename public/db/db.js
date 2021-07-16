@@ -3,7 +3,6 @@ module.exports = function () {
   const _ = require('lodash')
   const users = []
   _.times(20, function (n) {
-    console.log('inside', n)
     users.push({
       id: n,
       name: faker.name.findName(),
