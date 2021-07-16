@@ -4,40 +4,28 @@ import Fetcher from './Fetcher'
 const DataDisplay = () => {
   const [data, setData] = React.useState(() => [])
   const [activeUrl, setUrl] = React.useState('users')
-
-  const memoisedFetch = React.useCallback((url) => {
-    fetch(url)
-      .then(
-        response => {
-          return response.json()
-        }
-      )
-      .then(data => {
-        setData(data)
-      })
-      .catch(e => {
-        throw new Error(e)
-      })
-  }, [])
-
-  const useFetch = (url) => {
-    React.useEffect(() => {
-      memoisedFetch(url)
-    }, [url])
-  }
-
-  // component mounted
-  useFetch(`http://localhost:9000/${activeUrl}`)
-
-  const memoisedCallback = React.useCallback((url) => {
-    setUrl(url)
-  }, [])
   
-
+  // component mounted
+  React.useEffect(() => {
+    const url = `http://localhost:9000/${activeUrl}`
+    fetch(url)
+        .then(
+          response => {
+            return response.json()
+          }
+        )
+        .then(data => {
+          setData(data)
+        })
+        .catch(e => {
+          throw new Error(e)
+        })
+  }, [activeUrl])
+  
   return (
     <div>
       <h1>Fetch some data!</h1>
-      <Fetcher dataAlias={activeUrl} submitUrl={memoisedCallback}/>
+      <Fetcher dataAlias={activeUrl} submitUrl={setUrl}/>
       <ul>
         {data.map(user => 
           <li key={user.id}>{JSON.stringify(user)}</li>
