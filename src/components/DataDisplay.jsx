@@ -1,8 +1,7 @@
 import React from 'react'
 import Fetcher from './Fetcher'
-import Container from '@material-ui/core/Container'
-import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
+import { Container, Box } from './material-ui'
 
 const DataDisplay = () => {
   const [data, setData] = React.useState(() => [])

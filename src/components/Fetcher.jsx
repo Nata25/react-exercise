@@ -1,6 +1,5 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
+import { Grid, Button } from './material-ui'
 
 const Fetcher = ({ dataAlias, submitUrl }) => {
   const urls = ['users', 'posts', 'comments']
