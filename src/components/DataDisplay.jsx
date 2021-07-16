@@ -2,7 +2,7 @@ import React from 'react'
 import Fetcher from './Fetcher'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery } from 'react-query'
-import { Container, Box } from './material-ui'
+import { Container, Box, Card } from './material-ui'
 
 const DataDisplay = () => {
   // const [data, setData] = React.useState(() => [])
@@ -24,10 +24,8 @@ const DataDisplay = () => {
         })
   }
 
-  // const queryClient = useQueryClient()
   const query = useQuery(['data', activeUrl], fetchData)
 
-  // styling staff
   const styles = makeStyles({
     list: {
       listStyleType: 'none',
@@ -35,6 +33,21 @@ const DataDisplay = () => {
       textAlign: 'left'
     }
   })()
+
+  const InfoCard = ({ item }) => {
+    const { name, email, phone, text, line } = item
+    return (
+      <Card variant="outlined">
+        <Box p={3}>
+          {name && <p>{name}</p>}
+          {email && <p>{email}</p>}
+          {phone && <p>{phone}</p>}
+          {text && <p>{text}</p>}
+          {line && <p>{line}</p>}
+        </Box>
+      </Card>
+    )
+  }
 
   const result = () => {
     if (query.isError) return <li>Something went wrong with request</li>
@@ -48,7 +61,7 @@ const DataDisplay = () => {
             mb={2}
             key={item.id}
           >
-            {JSON.stringify(item)}
+            <InfoCard item={item} />
           </Box>
         )
       )
