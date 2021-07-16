@@ -1,6 +1,7 @@
 import React from 'react'
 import Fetcher from './Fetcher'
 import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
 
 const DataDisplay = () => {
@@ -17,7 +18,6 @@ const DataDisplay = () => {
           }
         )
         .then(data => {
-          console.log(data)
           setData(data)
         })
         .catch(e => {
@@ -26,27 +26,29 @@ const DataDisplay = () => {
   }, [activeUrl])
 
   // styling staff
-  const useStyles = makeStyles({
+  const styles = makeStyles({
     list: {
       listStyleType: 'none',
       paddingLeft: 0,
       textAlign: 'left'
     }
-  })
-  const styles = useStyles()
+  })()
   
   return (
-    <Container fixed alignItems="start">
+    <Container fixed>
       <h1>Fetch some data!</h1>
       <Fetcher dataAlias={activeUrl} submitUrl={setUrl}/>
       <div>
         <ul className={styles.list}>
           {data.map(item =>
-            <li
+            <Box
+              component="li"
+              mt={2}
+              mb={2}
               key={item.id}
             >
               {JSON.stringify(item)}
-            </li>
+            </Box>
           )}
         </ul>
       </div>

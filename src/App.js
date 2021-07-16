@@ -1,4 +1,4 @@
-import './App.css';
+import './App.css'
 import DataDisplay from './components/DataDisplay'
 
 function App() {
