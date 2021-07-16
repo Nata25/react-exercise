@@ -9,8 +9,8 @@ Script to run:
 ### `npm i -g json-server`
 ### `npm run serve`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser and launch local sever with fake api.
+Runs the app in the development mode and launches local sever with fake api.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. JSON-server api is available at [http://localhost:9000](http://localhost:9000)
 
 ## Learn More
 
