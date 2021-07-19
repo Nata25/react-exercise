@@ -1,7 +1,7 @@
 import { Card, Box } from './material-ui'
 
 const InfoCard = ({ item }) => {
-  const { name, email, phone, text, date, title } = item
+  const { id, name, email, phone, text, date, title } = item
   return (
     <Card variant="outlined">
       <Box component="article" p={3}>
@@ -20,6 +20,7 @@ const InfoCard = ({ item }) => {
         </p>}
         {text && <p>{text}</p>}
         {date && <p>{date}</p>}
+        <p>(id: {id})</p>
       </Box>
     </Card>
   )

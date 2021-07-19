@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 import { makeStyles } from '@material-ui/core/styles'
 import { Container} from './material-ui'
 
@@ -10,7 +9,7 @@ import Result from './Result'
 
 const DataDisplay = () => {
   const [activeUrl, setUrl] = React.useState('users')
-  const [searchParam, setSearchParam] = React.useState({ param: '', value: '' })
+  const [searchParams, setSearchParams] = React.useState({})
 
   const styles = makeStyles({
     list: {
@@ -20,9 +19,8 @@ const DataDisplay = () => {
     }
   })()
 
-  function submitQuery(e, param) {
-    const { value } = e.target
-    setSearchParam({ param, value })
+  function submitQuery(params) {
+    setSearchParams(params)
   }
 
   return (
@@ -32,7 +30,7 @@ const DataDisplay = () => {
       <Search submitQuery={submitQuery} />
       <div>
         <ul className={styles.list}>
-          <Result activeUrl={activeUrl} searchParam={searchParam} />
+          <Result activeUrl={activeUrl} searchParams={searchParams} />
         </ul>
       </div>
     </Container>
