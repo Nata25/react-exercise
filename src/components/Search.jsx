@@ -1,30 +1,17 @@
 import React from 'react'
 import { Box } from './material-ui'
+import { useForm } from './form-context'
 
-function Search ({ submitQuery }) {
-  const queries = ['name', 'id']
-  const form = queries.reduce((acc, current) => {
-    acc[current] = ''
-    return acc
-  }, {})
-
-  function formReducer (state, action) {
-    return {
-      ...state,
-      ...action
-    }
-  }
-
-  const [formState, formDispatch] = React.useReducer(formReducer, form)
+function Search ({ queries }) {
+  const [, formDispatch] = useForm()
 
   function onChange (e, query) {
     const payload = { [query]: e.target.value }
     formDispatch(payload)
-    submitQuery(formState)
   }
 
   return (
-    <div>
+    <div style={ { textAlign: 'left' } }>
       <h4>Search in results by:</h4>
       {queries.map(query =>
         <Box mb={3} key={query}> 

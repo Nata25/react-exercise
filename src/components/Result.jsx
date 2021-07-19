@@ -1,14 +1,16 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Box } from './material-ui'
+import { useForm } from './form-context'
 import InfoCard from './InfoCard'
 
 function filterData (data, params) {
   const result = Object.keys(params).reduce((acc, current) => {
     const filtered = acc.filter(item => {
-      if (item[current]) {
-        const stringToSearch = item[current].toString().toLowerCase()
-        return stringToSearch.includes(params[current])
+      if (item.hasOwnProperty(current)) {
+        const stringSearchable = item[current].toString().toLowerCase()
+        const stringToSearch = params[current].toLowerCase()
+        return stringSearchable.includes(stringToSearch)
       } else return true
     })
     return filtered
@@ -16,8 +18,9 @@ function filterData (data, params) {
   return result
 }
 
-function Result ({ activeUrl, searchParams }) {
+function Result ({ activeUrl }) {
   const query = useQuery(['data', activeUrl], fetchData)
+  const [searchParams] = useForm()
 
   function fetchData () {
     const url = `http://localhost:9000/${activeUrl}`
@@ -34,7 +37,7 @@ function Result ({ activeUrl, searchParams }) {
           throw new Error(e)
         })
   }
-  
+
   const { isError, isLoading, isSuccess } = query
     if (isError) return <li>Something went wrong with request</li>
     else if (isLoading) return <li>loading...</li>

@@ -7,9 +7,11 @@ import Fetcher from './Fetcher'
 import Search from './Search'
 import Result from './Result'
 
+import { FormContextProvider } from  './form-context'
+
 const DataDisplay = () => {
   const [activeUrl, setUrl] = React.useState('users')
-  const [searchParams, setSearchParams] = React.useState({})
+  const queries = ['id', 'name', 'email']
 
   const styles = makeStyles({
     list: {
@@ -19,20 +21,18 @@ const DataDisplay = () => {
     }
   })()
 
-  function submitQuery(params) {
-    setSearchParams(params)
-  }
-
   return (
     <Container fixed>
       <h1>Fetch some data!</h1>
-      <Fetcher dataAlias={activeUrl} submitUrl={setUrl}/>
-      <Search submitQuery={submitQuery} />
-      <div>
-        <ul className={styles.list}>
-          <Result activeUrl={activeUrl} searchParams={searchParams} />
-        </ul>
-      </div>
+      <FormContextProvider queries={queries}>  
+        <Fetcher dataAlias={activeUrl} submitUrl={setUrl}/>
+        <Search queries={queries}/>
+        <div>
+          <ul className={styles.list}>
+            <Result activeUrl={activeUrl} />
+          </ul>
+        </div>
+      </FormContextProvider>
     </Container>
   )
 }
