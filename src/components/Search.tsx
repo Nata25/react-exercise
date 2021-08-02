@@ -1,13 +1,17 @@
-import React from 'react'
+import { ChangeEvent, FC } from 'react'
 import { Box } from './material-ui'
 import { useForm } from './form-context'
 
-function Search ({ queries }) {
+interface ISearchProps {
+  queries: string[]
+}
+
+const Search: FC<ISearchProps> = ({ queries }) => {
   const [, formDispatch] = useForm()
 
-  function onChange (e, query) {
+  function onChange (e: ChangeEvent<HTMLInputElement>, query: string) {
     const payload = { [query]: e.target.value }
-    formDispatch(payload)
+    formDispatch && formDispatch(payload)
   }
 
   return (
@@ -15,6 +19,7 @@ function Search ({ queries }) {
       <h4>Search in results by:</h4>
       {queries.map(query =>
         <Box mb={3} key={query}> 
+          {/* @ts-expect-error */}
           <Box component="label" mr={2} htmlFor={query}>{query}</Box>
           <input id={query} onChange={(e) => onChange(e, query)} />
         </Box>

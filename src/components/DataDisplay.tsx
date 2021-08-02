@@ -10,7 +10,7 @@ import Result from './Result'
 import { FormContextProvider } from  './form-context'
 
 const DataDisplay = () => {
-  const [activeUrl, setUrl] = React.useState('users')
+  const [activeUrl, setUrl] = React.useState<string>('users')
   const queries = ['id', 'name', 'email']
 
   const styles = makeStyles({

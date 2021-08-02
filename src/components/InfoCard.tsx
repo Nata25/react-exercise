@@ -1,6 +1,10 @@
+import { FC } from 'react'
 import { Card, Box } from './material-ui'
+import { InfoCardItem } from '../types'
 
-const InfoCard = ({ item }) => {
+type InfoCardProps = { item: InfoCardItem }
+
+const InfoCard: FC<InfoCardProps> = ({ item }) => {
   const { id, name, email, phone, text, date, title } = item
   return (
     <Card variant="outlined">

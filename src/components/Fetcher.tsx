@@ -1,7 +1,12 @@
-import React from 'react'
+import { FC } from 'react'
 import { Grid, Button } from './material-ui'
 
-const Fetcher = ({ dataAlias, submitUrl }) => {
+interface IFetcherProps {
+  dataAlias: string,
+  submitUrl: (arg: string) => void
+}
+
+const Fetcher: FC<IFetcherProps> = ({ dataAlias, submitUrl }) => {
   const urls = ['users', 'posts', 'comments']
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="center">
