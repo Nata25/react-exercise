@@ -1,45 +1,17 @@
 import { FC } from 'react'
-import { useQuery, UseQueryResult } from 'react-query'
 import { Box } from './material-ui'
-import { useForm } from './form-context'
+import { useForm } from '../hooks/useForm'
 import InfoCard from './InfoCard'
-import { DataObject, ParamsObject } from '../types'
+import { DataObject } from '../types'
+import filterData from '../helpers/filter-items'
+import useDataQuery from '../hooks/useDataQuery'
 
 interface IResultProps {
   activeUrl: string
 }
 
-function filterData<T extends DataObject> (data: T[], params: ParamsObject): T[] {
-  const result = Object.keys(params).reduce((acc, current) => {
-    const filtered: T[] = acc.filter(item => {
-      if (item.hasOwnProperty(current)) {
-        const stringSearchable: string = item[current].toString().toLowerCase()
-        const stringToSearch = params[current].toLowerCase()
-        return stringSearchable.includes(stringToSearch)
-      } else return true
-    })
-    return filtered
-  }, data)
-  return result
-}
-
 const Result: FC<IResultProps> = ({ activeUrl }) => {
-  function fetchData<T>(): Promise<T> {
-    return fetch(`http://localhost:9000/${activeUrl}`)
-        .then(
-          response => {
-            return response.json()
-          }
-        )
-        .then(function(data) {
-          return data
-        })
-        .catch(e => {
-          throw new Error(e)
-        })
-  }
-
-  const query: UseQueryResult<(DataObject)[] | undefined, Boolean> = useQuery(['data', activeUrl], fetchData)
+  const query = useDataQuery(activeUrl)
   const [searchParams] = useForm()
 
   const { isError, isLoading, isSuccess } = query

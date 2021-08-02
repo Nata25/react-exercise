@@ -1,6 +1,6 @@
 import { ChangeEvent, FC } from 'react'
 import { Box } from './material-ui'
-import { useForm } from './form-context'
+import { useForm } from '../hooks/useForm'
 
 interface ISearchProps {
   queries: string[]
